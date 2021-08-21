@@ -105,7 +105,7 @@ class Person {
   }
 }
 
-class Arun {
+class Arun extends Person {
   constructor(name, age) {
     super(name, location, age);
     this.name = name;
@@ -154,7 +154,7 @@ class Person {
   }
 }
 
-class Arun {
+class Arun extends Person {
   constructor(name, age) {
     super(name, location, age);
     this.name = name;
@@ -176,6 +176,27 @@ arun.eat();
 1. One should “depend upon abstractions, [not] concretions".
 2. Abstractions should not depend on the details whereas the details should depend on abstractions.
 3. High-level modules should not depend on low level modules.
+
+```javascript
+class ClassWithPrivateField {
+  #secretNumber;
+
+  constructor() {
+    this.secretNumber = 42;
+  }
+}
+
+class SubClass extends ClassWithPrivateField {
+  #subSecretNumber;
+
+  constructor() {
+    super();
+    this.subSecretNumber = 21;
+  }
+}
+
+let subClass = new SubClass();
+```
 
 ## If we don’t follow SOLID Principles :
 
