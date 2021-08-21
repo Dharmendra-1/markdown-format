@@ -1,142 +1,201 @@
 ![SOLID](https://miro.medium.com/max/1838/1*1Fl0dq4B7vq3zqR2k8bHdg.jpeg)
 
-> ### **In software development, Object-Oriented Design plays a crucial role when it comes to writing flexible, scalable, maintainable, and reusable code.**
+# SOLID Introduction
 
-> ###  **The SOLID principle was introduced by Robert C. Martin, also known as Uncle Bob and it is a coding standard in programming.**
+1. SOLID principles are the design principles that enable us manage most of the software design problems.
+2. The term SOLID is an acronym for five design principles intended to make software designs more understandable, flexible and maintainable.
+3. The principles are a subset of many principles promoted by Robert C. Martin.
+4. The SOLID acronym was first introduced by Michael Feathers.
 
+## 1. Single Responsibility Principle
 
-# 1. ***Single responsibility principle*** 
-
-> ### This principle states that “a class should have only one reason to change” which means every class should have a single responsibility or single job or single purpose. 
-
-> ### Example:- Take the example of developing software. The task is divided into different members doing different things as front-end designers do design, the tester does testing and the backend developer takes care of the backend development part then we can say that everyone has a single job or responsibility.
-
-```javascript 
-
-  function job(number){
-    const double = number + number
-    return double
-  }
-
-  job(5) 
-```
-
-
-# 2. ***Open-closed principle***
-
-> ### This principle states that “software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification” which means you should be able to extend a class behavior, without modifying it.
-
-> ### Example:- Suppose developer A needs to release an update for a library or framework and developer B wants some modification or add some feature on that then developer B is allowed to extend the existing class created by developer A but developer B is not supposed to modify the class directly.
-
-> ### Using this principle separates the existing code from the modified code so it provides better stability, maintainability and minimizes changes as in your code.
-
-
-```javascript 
-
-  function parent(){
-    let name = "Robert C. Martin"
-     
-     console.log(name)
-      
-      function inner(){
-          let name = 'Bob'
-
-          console.log(name)
-      }
-    
-   inner() 
-  }
-
-parent()
-
-```
-
-
-# ***3. Liskov’s Substitution Principle***
-
-> ### The principle was introduced by Barbara Liskov in 1987 and according to this principle “Derived or child classes must be substitutable for their base or parent classes“.
-
-> ### Example:- A farmer’s son should inherit farming skills from his father and should be able to replace his father if needed. If the son wants to become a farmer then he can replace his father but if he wants to become a cricketer then definitely the son can’t replace his father even though they both belong to the same family hierarchy.
-
-```javascript 
-
-  function parent(){
-    let parentName = "Robert C. Martin"
-     
-     console.log(name)
-      
-      function inner(){
-          let childName = 'Bob'
-        
-          console.log(parentName)        
-          console.log(childName)
-      }
-    
-    console.log(childName) //Error
-
-   inner() 
-  }
-
-parent()
-```
-
-
-#  ***4.Interface Segregation Principle***
-
-> ### It is similar to the single responsibility principle. It states that “do not force any client to implement an interface which is irrelevant to them“.
-> ### Using this principle helps in reducing the side effects and frequency of required changes.
-
-> ### Example:-  Suppose if you enter a restaurant and you are pure vegetarian. The waiter in that restaurant gave you the menu card which includes vegetarian items, non-vegetarian items, drinks, and sweets. In this case, as a customer, you should have a menu card that includes only vegetarian items, not everything which you don’t eat in your food. Here the menu should be different for different types of customers. The common or general menu card for everyone can be divided into multiple cards instead of just one.
+1. Robert C. Martin expresses the principle as, "A class should have only one reason to change”.
+2. Every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.
 
 ```javascript
-
-     function calculator(number){
-             
-        const sum = ()=>{
-          return number+number
-        }     
-      
-       const min = ()=>{
-         return number - 1
-       }
-
-       const mul = ()=>{
-         return number*number
-       }
-      
-      sum()
-      min()
-      mul() 
-     }
-
-calculator()
-```
-
-# ***5. Dependency Inversion Principle***
-
-> ### High-level modules/classes should not depend on low-level modules/classes. Both should depend upon abstractions.
-> ### Abstractions should not depend upon details. Details should depend upon abstractions.
-
-```javascript 
-
-  function parent(){
-    let parentName = "Robert C. Martin"
-     
-     console.log(name)
-      
-      function inner(){
-          let childName = 'Bob'
-        
-          console.log(parentName)        
-          console.log(childName)
-      }
-    
-    console.log(childName) //Error
-
-   inner() 
+class Person {
+  constructor(name, location) {
+    this.name = name;
+    this.location = location;
   }
 
-parent()
+  eat() {
+    console.log(`${this.name} is eating....`);
+  }
+
+  sleep() {
+    console.log(`${this.name} is sleeping..`);
+  }
+}
+
+let arun = new Person('arun', 'Gujrat');
+arun.eat();
+arun.sleep();
 ```
 
- > ### Example :- A TV remote battery. Your remote needs a battery but it’s not dependent on the battery brand. You can use any XYZ brand that you want and it will work. So we can say that the TV remote is loosely coupled with the brand name.
+## 2. Open-Closed Principle
+
+1. “Software entities should be open for extension, but closed for modification”.
+2. The design and writing of the code should be done in a way that new functionality should be added with minimum changes in the existing code.
+3. The design should be done in a way to allow the adding of new functionality as new classes, keeping as much as possible existing code unchanged.
+
+```javascript
+class Person {
+  constructor(name, location, age) {
+    this.name = name;
+    this.location = location;
+    this.age = age;
+  }
+
+  eat() {
+    console.log(`${this.name} is eating....`);
+  }
+
+  sleep() {
+    console.log(`${this.name} is sleeping..`);
+  }
+
+  type() {
+    if (this.age < 18) {
+      console.log(`${this.name} is Youngster .`);
+    } else if (this.age > 18 && this.age < 45) {
+      console.log(`${this.name} is Adult .`);
+    } else {
+      `${this.name} is  old.`;
+    }
+  }
+}
+
+let arun = new Person('arun', 'Gujrat');
+arun.eat();
+arun.sleep();
+arun.type();
+```
+
+## 3. Liskov Substitution Principle
+
+1. Introduced by Barbara Liskov state that “objects in a program should be replaceable with instances of their sub-types without altering the correctness of that program”.
+2. If a program module is using a Base class, then the reference to the Base class can be replaced with a Derived class without affecting the functionality of the program module.
+3. We can also state that Derived types must be substitutable for their base types.
+
+```javascript
+class Person {
+  constructor(name, location, age) {
+    this.name = name;
+    this.location = location;
+    this.age = age;
+  }
+
+  eat() {
+    console.log(`${this.name} is eating....`);
+  }
+
+  sleep() {
+    console.log(`${this.name} is sleeping..`);
+  }
+
+  type() {
+    if (this.age < 18) {
+      console.log(`${this.name} is Youngster .`);
+    } else if (this.age > 18 && this.age < 45) {
+      console.log(`${this.name} is Adult .`);
+    } else {
+      `${this.name} is  old.`;
+    }
+  }
+}
+
+class Arun {
+  constructor(name, age) {
+    super(name, location, age);
+    this.name = name;
+    this.age = age;
+  }
+
+  work(designation) {
+    console.log(`${this.name} is a ${designation} ..`);
+  }
+}
+
+const arun = new Arun('arun', 25);
+arun.work();
+arun.eat();
+```
+
+## 4. Interface Segregation Principle
+
+1. “Many client-specific interfaces are better than one general-purpose interface”.
+2. We should not enforce clients to implement interfaces that they don't use. Instead of creating one big interface we can break down it to smaller interfaces.
+
+```javascript
+class Person {
+  constructor(name, location, age) {
+    this.name = name;
+    this.location = location;
+    this.age = age;
+  }
+
+  eat() {
+    console.log(`${this.name} is eating....`);
+  }
+
+  sleep() {
+    console.log(`${this.name} is sleeping..`);
+  }
+
+  type() {
+    if (this.age < 18) {
+      console.log(`${this.name} is Youngster .`);
+    } else if (this.age > 18 && this.age < 45) {
+      console.log(`${this.name} is Adult .`);
+    } else {
+      `${this.name} is  old.`;
+    }
+  }
+}
+
+class Arun {
+  constructor(name, age) {
+    super(name, location, age);
+    this.name = name;
+    this.age = age;
+  }
+
+  work(designation) {
+    console.log(`${this.name} is a ${designation} ..`);
+  }
+}
+
+const arun = new Arun('arun', 25);
+arun.work();
+arun.eat();
+```
+
+## 5. Dependency Inversion Principle
+
+1. One should “depend upon abstractions, [not] concretions".
+2. Abstractions should not depend on the details whereas the details should depend on abstractions.
+3. High-level modules should not depend on low level modules.
+
+## If we don’t follow SOLID Principles :
+
+1. End up with tight or strong coupling of the code with many other modules/applications.
+2. Tight coupling causes time to implement any new requirement, features or any bug fixes and some times it creates unknown issues.
+3. End up with a code which is not testable.
+4. End up with duplication of code.
+5. End up creating new bugs by fixing another bug.
+6. End up with many unknown issues in the application development cycle.
+
+## Following SOLID Principles helps us to :
+
+1. Achieve reduction in complexity of code.
+2. Increase readability, extensibility and maintenance.
+3. Reduce error and implement Reusability.
+4. Achieve Better testability.
+5. Reduce tight coupling.
+
+## Solution to develop a successful application depends on
+
+1. Architecture : choosing an architecture is the first step in designing application based on the requirements. Example : MVC, WEBAPI, MVVM..etc.
+2. Design Principles : Application development process need to follow the design principles.
+3. Design Patterns : We need to choose correct design patterns to build the software.
