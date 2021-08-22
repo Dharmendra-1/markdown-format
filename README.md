@@ -178,24 +178,43 @@ arun.eat();
 3. High-level modules should not depend on low level modules.
 
 ```javascript
-class ClassWithPrivateField {
-  #secretNumber;
-
-  constructor() {
-    this.secretNumber = 42;
+const messageFromFirst = (function () {
+  function printMessage(message) {
+    console.log(message);
   }
-}
 
-class SubClass extends ClassWithPrivateField {
-  #subSecretNumber;
+  return {
+    notify: printMessage,
+  };
+})();
 
-  constructor() {
-    super();
-    this.subSecretNumber = 21;
+const messageFromSecond = (function () {
+  function logMessage(message) {
+    console.log(message);
   }
-}
 
-let subClass = new SubClass();
+  return {
+    notify: logMessage,
+  };
+})();
+
+const superMessage = function (writer) {
+  var notifier = writer;
+
+  function writeMessage(msg) {
+    notifier.notify(msg);
+  }
+
+  this.writeNotification = writeMessage;
+};
+
+const msgFirst = new superMessage(messageFromFirst);
+
+msgFirst.writeNotification('This msg written by first');
+
+const msgSecond = new superMessage(messageFromSecond);
+
+msgSecond.writeNotification('This msg written by second');
 ```
 
 ## If we don’t follow SOLID Principles :
